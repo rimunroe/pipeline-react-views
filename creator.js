@@ -10,29 +10,31 @@ module.exports = function (_app) {
 
   var reactMixin = function (storeNames, viewName) {
     return {
-      stores: {},
+      stores: _app.stores,
       componentWillMount: function(){
-        for (var storeName in storeNames) {
+        var that = this;
+        _.forEach(storeNames, function(storeName){
           if (!_app.stores[storeName]) {
             throw new Error("\"" + viewName + "\" tried to subscribe to \"" + storeName + "\", but it didn't exist.  FYI, views must be created after stores.");
           }
-          this.stores[storeName] = _app.stores[storeName];
-          changeCb = this[onChange(storeName)];
+          // this.stores[storeName] = _app.stores[storeName];
+          changeCb = that[onChange(storeName)];
           if (_.isFunction(changeCb)) {
             changeCb();
             _app.dispatcher.registerStoreCallback(storeName, changeCb, viewName);
           } else {
             throw new Error("\"" + viewName + "\" attempted to subscribe to \"" + storeName + "\" but the view did not have a \"" + onChange(storeName) + "\" method.");
           }
-        }
+        });
       },
       componentWillUnmount: function(){
-        for (var storeName in storeNames) {
-          changeCb = this[onChange(storeName)];
+        var that = this;
+        _.forEach(storeNames, function(storeName){
+          changeCb = that[onChange(storeName)];
           if (_.isFunction(changeCb)) {
             _app.dispatcher.unregisterStoreCallback(storeName, changeCb, viewName);
           }
-        }
+        });
       }
     };
   };
@@ -43,15 +45,17 @@ module.exports = function (_app) {
       throw new Error("cannot create new view \"" + viewName + "\". App has already started.");
     }
 
-    var storeNames = _.isString(options.stores) ? [options.stores] : options.stores;
+    var storeNames = _.keys(options.stores) || [];
+    var storeCallbacks = {};
+
+    _.forEach(options.stores, function(cb, storeName){
+      storeCallbacks[onChange(storeName)] = cb;
+    });
+
     delete options.stores;
+    _.extend(options, storeCallbacks);
 
     if (storeNames != null) {
-      for (var storeName in StoreNames){
-        if (!_.isFunction(options[onChange(storeName)])) {
-          console.warn("\"" + viewName + "\" did not have an \"" + onChange(storeName) + "\" function but listens to \"" + storeName + "\".");
-        }
-      }
       options.mixins = options.mixins || [];
       options.mixins.push(reactMixin(storeNames, viewName));
     }
