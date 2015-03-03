@@ -1,0 +1,28 @@
+{
+  "name": "pipeline-react-views",
+  "version": "0.1.0",
+  "description": "Pipeline plugin providing shorthand for creating views with React.js.",
+  "main": "pipeline-react-views.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "William Lubelski",
+  "contributors": [
+    {
+      "name": "Richard Munroe"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^3.3.1",
+    "react": "^0.12.2"
+  },
+  "devDependencies": {
+    "webpack": "^1.6.0"
+  },
+  "keywords": [
+    "pipeline",
+    "flux",
+    "react"
+  ]
+}
