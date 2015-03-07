@@ -1,4 +1,4 @@
-var creator = require('./creator');
+var creator = require('./src/view');
 
 module.exports = {
   name: 'pipeline-react-views',
