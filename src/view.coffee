@@ -45,7 +45,7 @@ make_create_view = (_app) ->
       options.mixins = options.mixins || []
       options.mixins.push(mixin(store_names, view_name))
 
-    delete options.stores
+    options.stores = {}
 
     _.extend options,
       displayName: humanize(view_name)
