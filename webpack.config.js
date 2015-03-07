@@ -1,9 +1,9 @@
 var path = require('path');
 
 module.exports = {
-  entry: path.join(__dirname, "index.js"),
+  entry: path.join(__dirname, "src", "index.js"),
   output: {
-    filename: 'pipeline-react-views.js',
+    filename: path.join("build", "pipeline-react-views.js"),
     libraryTarget: "umd",
     library: "pipeline-react-views"
   },
