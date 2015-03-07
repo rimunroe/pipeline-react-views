@@ -41,8 +41,6 @@ make_create_view = (_app) ->
       options[cb_internal_name(store_name)] = (-> @setState(cb.call(this)))
     )
 
-    _.extend(options, cbs)
-
     if not _.isEmpty(store_names)
       options.mixins = options.mixins || []
       options.mixins.push(mixin(store_names, view_name))
