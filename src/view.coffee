@@ -15,19 +15,14 @@ make_create_view = (_app) ->
 
   mixin = (store_names, view_name) ->
     componentWillMount: ->
+      console.log("component '#{view_name}' is mounting and registering with stores: [#{store_names}]")
       _.each store_names, (store_name) =>
         if !_app.stores[store_name]
           throw new Error "#{view_name} attempted to subscribe to #{store_name} but that store didn't exist."
 
         @stores[store_name] = _app.stores[store_name]
 
-        change_cb = @[cb_internal_name(store_name)]
-
-        if _.isFunction(change_cb)
-          change_cb()
-          _app.dispatcher.registerStoreCallback(store_name, change_cb, view_name)
-        else
-          throw new Error "#{view_name} attempted to subscribe to #{store_name} with something other than a function"
+        _app.dispatcher.registerStoreCallback(store_name, @[cb_internal_name(store_name)], view_name)
 
     componentWillUnmount: ->
       _.each store_names, (store_name) =>
@@ -42,10 +37,9 @@ make_create_view = (_app) ->
 
     store_names = _.keys(options.stores)
 
-    cbs = _.reduce options.stores, ((cbs, cb, store_name) ->
-      cbs[cb_internal_name(store_name)] = (-> @setState(cb.call(this)))
-      cbs
-    ),{}
+    _.each options.stores, ((cb, store_name) ->
+      options[cb_internal_name(store_name)] = (-> @setState(cb.call(this)))
+    )
 
     _.extend(options, cbs)
 
