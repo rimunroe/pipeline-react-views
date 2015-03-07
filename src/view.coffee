@@ -24,6 +24,8 @@ make_create_view = (_app) ->
 
         _app.dispatcher.registerStoreCallback(store_name, @[cb_internal_name(store_name)], view_name)
 
+      _.each store_names, (store_name) => @[cb_internal_name(store_name)]()
+
     componentWillUnmount: ->
       _.each store_names, (store_name) =>
         _app.dispatcher.unregisterStoreCallback(store_name, @[cb_internal_name(store_name)], view_name)
@@ -37,9 +39,13 @@ make_create_view = (_app) ->
 
     store_names = _.keys(options.stores)
 
-    _.each options.stores, ((cb, store_name) ->
-      options[cb_internal_name(store_name)] = (-> @setState(cb.call(this)))
-    )
+    _.each options.stores, (cb, store_name) ->
+      options[cb_internal_name(store_name)] = ->
+        state = cb.call(this)
+        if _.isObject(state)
+          @setState(state)
+        else
+          console.log('DID NOT RETURN OBJECT FROM STORE CHANGE FUNCTION')
 
     if not _.isEmpty(store_names)
       options.mixins = options.mixins || []
