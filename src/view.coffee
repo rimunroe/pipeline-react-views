@@ -40,18 +40,20 @@ make_create_view = (_app) ->
     if _.isArray options.stores
       throw new Ereror "Stores as array of keys hasn't been implemnted yet"
 
+    store_names = _.keys(options.stores)
+
     cbs = _.reduce options.stores, ((cbs, cb, store_name) ->
       cbs[cb_internal_name(store_name)] = (-> @setState(cb.call(this)))
       cbs
     ),{}
 
-    delete options.stores
-
     _.extend(options, cbs)
 
-    if store_names?
+    if not _.isEmpty(store_names)
       options.mixins = options.mixins || []
       options.mixins.push(mixin(store_names, view_name))
+
+    delete options.stores
 
     _.extend options,
       displayName: humanize(view_name)
