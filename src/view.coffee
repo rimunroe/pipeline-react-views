@@ -5,7 +5,7 @@ cb_internal_name = (store_name) -> "_pipeline_get_#{store_name}_state_function"
 
 # cb_change_name = (store_name) -> "on#{store_name}Change"
 
-humanize: (string) ->
+humanize = (string) ->
   if not _.isString(string) then string = ''
   string.charAt(0).toUpperCase() + string.replace( /([A-Z])/g, " $1" ).slice(1)
 
@@ -60,6 +60,7 @@ make_create_view = (_app) ->
 
     view = React.createFactory(React.createClass(options))
 
+    _app.views = {} unless _.isObject(_app.views)
     _app.views[view_name] = view
 
     return view
