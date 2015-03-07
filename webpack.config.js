@@ -10,5 +10,14 @@ module.exports = {
   externals: {
     lodash: "lodash",
     react: "react"
+  },
+  module: {
+    loaders: [
+      { test: /\.coffee$/, loader: "coffee-loader" },
+      { test: /\.(coffee\.md|litcoffee)$/, loader: "coffee-loader?literate" }
+    ]
+  },
+  resolve: {
+    extensions: ['', '.js', '.coffee']
   }
 };
