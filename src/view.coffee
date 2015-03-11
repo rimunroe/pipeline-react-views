@@ -15,7 +15,6 @@ module.exports = (React) ->
 
     mixin = (store_names, view_name) ->
       getInitialState: ->
-        _.each()
         _.reduce(store_names, (initital_state, store_name) =>
           _.extend(initital_state, @[cb_internal_name(store_name)]('get'))
         ,{})
