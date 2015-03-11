@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["_"], factory);
 	else if(typeof exports === 'object')
-		exports["pipeline-react-views"] = factory(require("_"));
+		exports["pipelineReactViews"] = factory(require("_"));
 	else
-		root["pipeline-react-views"] = factory(root["_"]);
+		root["pipelineReactViews"] = factory(root["_"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

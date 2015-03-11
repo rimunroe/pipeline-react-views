@@ -5,7 +5,7 @@ module.exports = {
   output: {
     filename: path.join("build", "pipeline-react-views.js"),
     libraryTarget: "umd",
-    library: "pipeline-react-views"
+    library: "pipelineReactViews"
   },
   externals: {
     lodash: "_",
