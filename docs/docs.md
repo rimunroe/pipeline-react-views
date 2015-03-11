@@ -53,8 +53,9 @@ FooView = React.createFactor React.createClass
 ### pipeline-react-views shorthand where change functions return new state
 
 pipeline-create-views provides the `create.view` constructor which: 
-  * applies a de-cameled `displayName` for you
-  * runs gets store data for all stores on `getInititalState`
+  * applies a humanized `displayName` for you
+  * binds change callbacks to component context for you
+  * gets store data for all stores on `getInititalState`
   * regsiters store change callbacks for you on `componentDidMount`
   * calls `setState` for you
   * unregisters store change callbacks on `componentWillUnmount`
