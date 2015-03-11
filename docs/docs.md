@@ -28,7 +28,7 @@ FooView = React.createFactor React.createClass
 
 ### register and unregister via mixin and manually call @setState in onChange functions
 
-* pipeline-react-views doesn't current implement this syntax (becuase the next one is so much nice) but it may at some point, if there is a neede to break out of the shorthand.  
+* pipeline-react-views doesn't currently implement this syntax (because the next one is so much nicer) but it may at some point, if there is a need to break out of the shorthand.
 
 ```coffee
 FooView = React.createFactor React.createClass
@@ -56,7 +56,7 @@ pipeline-create-views provides the `create.view` constructor which:
   * applies a humanized `displayName` for you
   * binds change callbacks to component context for you
   * gets store data for all stores on `getInititalState`
-  * regsiters store change callbacks for you on `componentDidMount`
+  * registers store change callbacks for you on `componentDidMount`
   * calls `setState` for you
   * unregisters store change callbacks on `componentWillUnmount`
   * puts a reference to the component's factory on `app.views`
