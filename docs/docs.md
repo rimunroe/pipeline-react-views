@@ -72,3 +72,24 @@ app.create.view 'foo',
       div className: 'foo', foo.name
 ```
 
+###### For the JSX crowd: 
+
+```js
+app.create.view('foo', {
+  stores: {
+    foo: function() {
+      return {foo: this.stores.foo.getFoos()};
+    },
+    bar: function() {
+      return {bar: this.stores.bar.getBars()};
+    }
+  },
+  render: function() {
+    return <div className={'foos'}> 
+      _.map(this.state.foos, function(foo) {
+        return <div className={'foo'}> foo.name </div>
+      });
+    </div>
+  }
+});
+```
