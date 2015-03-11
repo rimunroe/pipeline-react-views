@@ -4,8 +4,8 @@
 FooView = React.createFactor React.createClass
   displayName: "Foo View"
   getInitialState: ->
-    foo: app.stores.foo.getFoos()
-    bar: app.stores.bar.getBars()
+    foos: app.stores.foo.getFoos()
+    bars: app.stores.bar.getBars()
 
   componentDidMount: ->
     app.dispatcher.register 'foo', @onFooChange
@@ -36,8 +36,8 @@ FooView = React.createFactor React.createClass
   mixins: app.reactMixin({foo: 'onFooChange', bar: 'onBarChange'})
 
   getInitialState: ->
-    foo: @stores.foo.getFoos()
-    bar: @stores.bar.getBars()
+    foos: @stores.foo.getFoos()
+    bars: @stores.bar.getBars()
 
   onFooChange: ->
     @setState foos: @stores.foo.getFoos()
@@ -53,7 +53,7 @@ FooView = React.createFactor React.createClass
 ### pipeline-react-views shorthand where change functions return new state
 
 pipeline-create-views provides the `create.view` constructor which: 
-  * applies displayName for you
+  * applies a de-cameled `displayName` for you
   * runs gets store data for all stores on `getInititalState`
   * regsiters store change callbacks for you on `componentDidMount`
   * calls `setState` for you
