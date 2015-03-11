@@ -8,8 +8,8 @@ module.exports = {
     library: "pipeline-react-views"
   },
   externals: {
-    lodash: "lodash",
-    react: "react"
+    lodash: "_",
+    react: "React"
   },
   module: {
     loaders: [
@@ -19,5 +19,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.coffee']
-  }
+  },
+  plugins: []
 };
