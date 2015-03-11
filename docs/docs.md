@@ -61,6 +61,8 @@ pipeline-create-views provides the `create.view` constructor which:
   * unregisters store change callbacks on `componentWillUnmount`
   * puts a reference to the component's factor on `app.views`
 
+###### So all you have to write is:  
+
 ```coffee
 app.create.view 'foo',
   stores:
