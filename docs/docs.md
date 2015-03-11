@@ -59,9 +59,12 @@ pipeline-create-views provides the `create.view` constructor which:
   * regsiters store change callbacks for you on `componentDidMount`
   * calls `setState` for you
   * unregisters store change callbacks on `componentWillUnmount`
-  * puts a reference to the component's factor on `app.views`
+  * puts a reference to the component's factory on `app.views`
+  * puts `this.stores`, `this.views` and `this.actions` on the component
 
 ###### So all you have to write is:  
+
+Either of those following blocks of code will basically produce the same component as the as the first block listed above.  
 
 ```coffee
 app.create.view 'foo',
