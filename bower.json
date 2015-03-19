@@ -17,9 +17,6 @@
     "react"
   ],
   "license": "MIT",
-  "dependencies": {
-    "lodash": "^3.3.1"
-  },
   "ignore": [
     "**/.*",
     "node_modules",
