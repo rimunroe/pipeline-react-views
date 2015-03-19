@@ -5,7 +5,7 @@
   "main": "pipeline-react-views.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack && webpack --config webpack.config.min.js"
+    "build": "lodash include=isString,each,isArray,keys,isObject,isEmpty,extend minus=chain exports=node --output libs/lodash.js -d && webpack && webpack --config webpack.config.min.js"
   },
   "author": "William Lubelski",
   "contributors": [
@@ -28,6 +28,7 @@
   "devDependencies": {
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.9.1",
+    "lodash-cli": "^3.5.0",
     "webpack": "^1.6.0"
   },
   "keywords": [
