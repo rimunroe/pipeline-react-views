@@ -1,6 +1,6 @@
 {
   "name": "pipeline-react-views",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Pipeline plugin providing shorthand for creating views with React.js.",
   "main": "pipeline-react-views.js",
   "scripts": {

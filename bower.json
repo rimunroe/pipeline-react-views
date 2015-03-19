@@ -1,7 +1,7 @@
 {
   "name": "pipeline-react-views",
   "main": "pipeline-react-views.js",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/rimunroe/pipeline-react-views",
   "authors": [
     "William Lubelski"
