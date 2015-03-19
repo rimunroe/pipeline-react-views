@@ -1,4 +1,4 @@
-_ = require 'lodash'
+_ = require '../libs/lodash'
 
 cb_internal_name = (store_name) -> "_pipeline_get_#{store_name}_state_function"
 

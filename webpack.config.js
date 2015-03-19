@@ -7,10 +7,6 @@ module.exports = {
     libraryTarget: "umd",
     library: "pipelineReactViews"
   },
-  externals: {
-    lodash: "_",
-    react: "React"
-  },
   module: {
     loaders: [
       { test: /\.coffee$/, loader: "coffee-loader" },
