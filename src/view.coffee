@@ -14,17 +14,16 @@ module.exports = (React) ->
       throw new Error "Couldn't add 'create.view' to _app because _app was buggered."
 
     mixin = (store_names, view_name) ->
-      componentWillMount: ->
-        console.log("component '#{view_name}' is mounting and registering with stores: [#{store_names}]")
+      getInitialState: ->
+        _.reduce(store_names, (initital_state, store_name) =>
+          _.extend(initital_state, @[cb_internal_name(store_name)]('get'))
+        ,{})
+
+      componentDidMount: ->
         _.each store_names, (store_name) =>
           if !_app.stores[store_name]
             throw new Error "#{view_name} attempted to subscribe to #{store_name} but that store didn't exist."
-
-          @stores[store_name] = _app.stores[store_name]
-
           _app.dispatcher.registerStoreCallback(store_name, @[cb_internal_name(store_name)], view_name)
-
-        _.each store_names, (store_name) => @[cb_internal_name(store_name)]()
 
       componentWillUnmount: ->
         _.each store_names, (store_name) =>
@@ -39,28 +38,38 @@ module.exports = (React) ->
 
       store_names = _.keys(options.stores)
 
+      storeRefs = {}
+
       _.each options.stores, (cb, store_name) ->
-        options[cb_internal_name(store_name)] = ->
+        options[cb_internal_name(store_name)] = (opt) ->
           state = cb.call(this)
-          if _.isObject(state)
-            @setState(state)
+          if opt is 'get'
+            return state
           else
-            console.log('DID NOT RETURN OBJECT FROM STORE CHANGE FUNCTION')
+            if @isMounted()
+              @setState(state)
+            else
+              console.log("Error: Attempted to update state for '#{view_name}' on '#{store_name}' change, but component wasn't mounted")
+
+        storeRefs[store_name] = _app.stores[store_name]
+        # TODO:  investigate this for the case of bogus refs based on load order.
 
       if not _.isEmpty(store_names)
         options.mixins = options.mixins || []
         options.mixins.push(mixin(store_names, view_name))
 
-      options.stores = {}
+      options.stores = storeRefs
+
+
+      _app.views = {} unless _.isObject(_app.views)
 
       _.extend options,
         displayName: humanize(view_name)
-        actions = _app.actions
-      options.views = _app.views
+        actions: _app.actions
+        views: _app.views
 
       view = React.createFactory(React.createClass(options))
 
-      _app.views = {} unless _.isObject(_app.views)
       _app.views[view_name] = view
 
       return view
